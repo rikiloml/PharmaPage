@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments</title>
+    <link rel="stylesheet" href="appointments.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+          selectable: true,
+          dateClick: function (info) {
+            alert("Selected date: " + info.dateStr);
+          },
+        });
+        calendar.render();
+      });
+    </script>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+      emailjs.init("VBPFyf99ToP0u_W7s");
+    </script>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="navBar" data-aos="fade-up">
+      <a class="navBarHomeBtn" href="home.html">
+        <img
+          class="navLogo"
+          src="assets/Logo_official-removebg-preview.png"
+          alt="Pharma Logo"
+        />
+      </a>
+
+      <div class="navItems">
+        <a href="home.html">Home</a>
+        <a href="about_us.html">About Us</a>
+        <a href="appointments.html">Appointments</a>
+        <a href="services.html">Services</a>
+        <a href="shop.html">Shop</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="heroHeader" src="assets/Appoint Head.png" alt="img">
+        <h1 class="heroTitle">Start your Journey with EEKG Health today!</h1>
+        <p class="heroSubtitle">Are you ready for hassle free appointments?</p>
+      </div>
+    </section>
+
+    <!-- Appointment Form -->
+    <section class="appointments">
+      <h2>Book Your Appointment</h2>
+      <div class="appointment-container">
+        <!-- Calendar Section -->
+        <div class="calendar">
+          <h3>Select a Date</h3>
+          <div class="calendar-box">
+            <input type="date" id="date-picker" />
+          </div>
+        </div>
+
+        <!-- Booking Form Section -->
+        <div class="booking-form">
+          <h3>Appointment Details</h3>
+          <form id="contact-form">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+              required
+            />
+
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+
+            <label for="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Enter your phone number"
+              required
+            />
+
+            <label for="time">Select Time</label>
+            <input type="time" id="time" name="time" required />
+
+            <label for="message">Additional Notes</label>
+            <textarea
+              id="message"
+              rows="4"
+              placeholder="Any specific concerns?"
+              name="message"
+            ></textarea>
+
+            <button type="submit">Book Appointment</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="calendarSection" data-aos="fade-up">
+      <h2>Schedule Your Appointment</h2>
+      <div class="calendarWidget" id="calendar"></div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faqSection" data-aos="fade-up">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <h3>How do I book an appointment?</h3>
+        <p>
+          You can easily book an appointment through our website, call us
+          directly, or visit our clinic to schedule in-person.
+        </p>
+        <h3>Do you accept insurance?</h3>
+        <p>
+          Yes, we accept most major insurance plans. Please contact us to
+          confirm if your insurance provider is accepted.
+        </p>
+        <h3>What should I bring to my appointment?</h3>
+        <p>
+          Please bring your ID, insurance information (if applicable), and any
+          medical records or prescriptions from your healthcare provider.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footerContent">
+        <div class="contactInfo">
+          <h3>Contact Us</h3>
+          <p>San Roman Village, Corozal District</p>
+          <p>+501 660-3053 or +501 629-7593</p>
+          <p>EEKGHealth@gmail.com</p>
+        </div>
+
+        <div class="stayUpdated">
+          <h3>Stay Updated</h3>
+          <p>
+            Subscribe to our newsletter for the latest updates, health tips, and
+            exclusive offers.
+          </p>
+          <form action="#" method="POST">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="openingHours">
+          <h3>Opening Hours</h3>
+          <p>Monday - Saturday: 8:00am - 9:00pm</p>
+          <p>Sunday: 10:00am - 9:00pm</p>
+        </div>
+      </div>
+
+      <p>&copy; 2025 EEKG Health. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
+    <script>
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          emailjs
+            .sendForm("service_qdq0k6d", "template_95iw4q6", e.target)
+            .then(
+              function () {
+                alert("Email sent successfully!");
+              },
+              function (error) {
+                alert("Failed to send email:\n" + JSON.stringify(error));
+              }
+            );
+        });
+    </script>
+  </body>
+</html>
